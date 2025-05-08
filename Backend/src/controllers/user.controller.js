@@ -1,3 +1,3 @@
-// function createuser(req, res){
+function createuser(req, res){
 
-// }
+}
