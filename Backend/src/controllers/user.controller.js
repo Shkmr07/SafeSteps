@@ -10,7 +10,7 @@ async function createuser(req, res) {
 
   try {
     const user = await User.create(payload);
-    customStatus(res, 201, "User Created", user);
+    customStatus(res, 201, "User Created");
   } catch (err) {
     customStatus(res, 500, "Internal Server Error", err.message);
   }
@@ -19,7 +19,7 @@ async function createuser(req, res) {
 async function loginuser(req, res) {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email })
     if (!user) {
       return customStatus(res, 404, "User Not Found");
     }
@@ -39,12 +39,19 @@ async function loginuser(req, res) {
       maxAge: toMs(process.env.REFRESH_TOKEN),
     });
 
+    
+
     customStatus(res, 200, "Login Successful", {
       accessToken,
-      user,
+      user : {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        profilePic: user.profilePic,
+      },
     });
   } catch (err) {
-    customStatus(res, 500, "Internal Server Error", err.message);
+    customStatus(res, 500, `Internal Server Error ${err.message}`);
   }
 }
 
