@@ -5,6 +5,7 @@ export default function Navbar() {
     <nav>
         <ul>
           <li>Home</li>
+          <li>Safety Tips</li>
         </ul>
 
     </nav>
